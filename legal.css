@@ -24,8 +24,10 @@ body {
   color: var(--ink);
   font-family: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Inter, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
   line-height: 1.65;
   padding: clamp(1.5rem, 6vmin, 4rem) 1.25rem clamp(3rem, 8vmin, 5rem);
+  overflow-wrap: break-word;
 }
 
 .page {
@@ -40,6 +42,7 @@ body {
 .brand {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 0.6rem;
   text-decoration: none;
   color: var(--ink);
@@ -138,10 +141,10 @@ a:hover { text-decoration-color: currentColor; }
 /* ---- footer ---- */
 
 footer {
-  margin-top: clamp(2rem, 6vmin, 3rem);
+  margin-top: clamp(1.5rem, 6vmin, 3rem);
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 0 1rem;
   align-items: center;
   justify-content: center;
   color: var(--ink-soft);
@@ -149,11 +152,16 @@ footer {
 }
 
 footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;              /* comfortable tap target on touch */
+  padding: 0 0.5rem;
   color: var(--ink-soft);
   text-decoration: none;
 }
 
-footer a:hover {
+footer a:hover,
+footer a:focus-visible {
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 0.2em;
