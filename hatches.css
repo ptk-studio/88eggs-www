@@ -263,6 +263,54 @@ a.card:active { transform: scale(0.99); }
   color: var(--ink-soft);
 }
 
+/* the screenshot of a finished song, under the steps */
+
+.shot {
+  margin: clamp(1.5rem, 5vmin, 2.25rem) 0 0;
+  text-align: center;
+}
+
+.shot a {
+  display: inline-block;
+  width: 100%;
+  max-width: 26rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease;
+  box-shadow: 0 20px 44px -30px var(--shadow);
+}
+
+@media (hover: hover) {
+  .shot a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 28px 54px -30px var(--shadow);
+  }
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 1rem;
+}
+
+.shot figcaption {
+  max-width: 30rem;
+  margin: 0.9rem auto 0;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.shot .zoom {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
 .steps {
   counter-reset: step;
   list-style: none;
