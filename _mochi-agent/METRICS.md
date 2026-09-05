@@ -30,7 +30,7 @@ carries:
 | | |
 |---|---|
 | Where it reports | **Statsig web analytics**, the `js-client+web-analytics` bundle loaded from jsDelivr with the client key `client-8PKsS9mhukEWaXJPLqwUbnVpxpDSXx1dZknQieBJBcw` in the query string. Which Statsig project that key belongs to has **not** been established — nobody in the fleet has opened the console |
-| What it captures on its own | Page views, clicks on links and buttons, web vitals, JavaScript errors, plus a randomly generated browser identifier for return visits (the wording is `/privacy/` section 4's, and it matches the bundle that is loaded) |
+| What it captures on its own | Page views, clicks on links and buttons, web vitals, JavaScript errors, plus a randomly generated browser identifier for return visits (**the wording is `/privacy/` section 4's**, quoted from the page; whether the loaded bundle actually captures that set has **not** been established — nobody in the fleet has read it, and `cdn.jsdelivr.net` is refused by the same egress policy as everything else) |
 | Which pages carry it | **All five.** Counted in the tree, not assumed: 5 of 5 |
 | Which pages log custom events | **Three.** `/` , `/hatches/` and `/hatches/song-story/`. `/privacy/` and `/terms/` carry the snippet and nothing else |
 | The three custom events | `egg_crack` on `/` (the egg, or the "psst" hint) · `hatch_open` on `/hatches/` (the one live card) · `cta_click` on `/hatches/song-story/` (the "Hatch Your Song Now" button) |
@@ -89,6 +89,19 @@ rotated client key produces an empty console that is indistinguishable from a si
 The first reading has to establish which it is looking at before any zero here is believed —
 exactly the trap [`88eggs-frontend#403`](https://github.com/ptk-studio/88eggs-frontend/issues/403)
 names for the client tier.
+
+**And that is not the only reason a low number here may be wrong, so do not read the paragraph
+above as the complete list.** All three custom events fire synchronously in a click handler on an
+anchor that navigates the same tab in the same gesture: none of the three carries
+`target="_blank"`, and no page in this repo calls `preventDefault`, flushes the client, uses
+`sendBeacon`, or handles `pagehide` / `beforeunload` / `visibilitychange` — all of those counts are
+zero across all five pages. **So delivery of every numerator rests entirely on the vendor bundle's
+own unload flushing, which nobody has read** — the bundle is pinned to `@statsig/js-client@3` from
+a CDN this environment cannot fetch, so it also floats within the major. **The error is
+one-directional:** both denominators are autocaptured page views, which fire on load with the whole
+session left to flush in, while both numerators are click-then-navigate events. **Both metrics can
+therefore only under-read, never over-read**, and a low crack-through or handoff rate has two
+innocent explanations before it has a product one.
 
 ---
 
