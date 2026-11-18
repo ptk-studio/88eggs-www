@@ -201,20 +201,5 @@
     }
   }
   </script>
-  <!-- Statsig web analytics (auto-captures page views, clicks, web vitals, JS errors) -->
-  <script src="https://cdn.jsdelivr.net/npm/@statsig/js-client@3/build/statsig-js-client+web-analytics.min.js?apikey=client-8PKsS9mhukEWaXJPLqwUbnVpxpDSXx1dZknQieBJBcw"></script>
-  <script>
-    // funnel step 3: they left for the app to actually make one — the conversion
-    document.querySelectorAll('.cta .button').forEach(function (el) {
-      el.addEventListener('click', function () {
-        try {
-          window.Statsig.instance().logEvent('cta_click', 'song_story_maker', {
-            destination: el.getAttribute('href'),
-            placement: 'page_bottom'
-          });
-        } catch (e) { /* analytics must never break navigation */ }
-      });
-    });
-  </script>
 </body>
 </html>

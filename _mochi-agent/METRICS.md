@@ -1,5 +1,12 @@
 # 88eggs-www — declared metrics
 
+> **2026-11-18: Statsig is removed from all five pages** (88eggs-backend#451; the manager's decision after the
+> First visit check, ptk-studio#237, found it loading from three outside hosts on a stranger's first visit). **Every
+> metric below is withdrawn**: its instrument is gone, and none was ever read. `/privacy/` section 4 now says the site
+> uses no analytics. If the site needs counts again, the proposal is the 88eggs funnel counter (counts only, no
+> identifier, our own api.88eggs.com), as on nurseisangel.com and honeystorm.com; that needs the manager's OK and a
+> privacy paragraph first. The rest of this file is kept as the record of what was declared.
+
 **What this product is trying to move.** Public on purpose: a metric nobody can see is a metric
 nobody can be held to.
 
@@ -29,7 +36,7 @@ carries:
 
 | | |
 |---|---|
-| Where it reports | **Statsig web analytics**, the `js-client+web-analytics` bundle loaded from jsDelivr with the client key `client-8PKsS9mhukEWaXJPLqwUbnVpxpDSXx1dZknQieBJBcw` in the query string. Which Statsig project that key belongs to has **not** been established — nobody in the fleet has opened the console |
+| Where it reports | **Statsig web analytics**, the `js-client+web-analytics` bundle loaded from jsDelivr with the client key `(a Statsig client key, removed)` in the query string. Which Statsig project that key belongs to has **not** been established — nobody in the fleet has opened the console |
 | What it captures on its own | Page views, clicks on links and buttons, web vitals, JavaScript errors, plus a randomly generated browser identifier for return visits (**the wording is `/privacy/` section 4's**, quoted from the page; whether the loaded bundle actually captures that set has **not** been established — nobody in the fleet has read it, and `cdn.jsdelivr.net` is refused by the same egress policy as everything else) |
 | Which pages carry it | **All five.** Counted in the tree, not assumed: 5 of 5 |
 | Which pages log custom events | **Three.** `/` , `/hatches/` and `/hatches/song-story/`. `/privacy/` and `/terms/` carry the snippet and nothing else |
